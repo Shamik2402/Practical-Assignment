@@ -1,12 +1,16 @@
 package com.project.practicalassignment.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Entity
 @Data
+@Builder
+@Getter
 @Table(name = "Story")
 public class Story {
     @Id
