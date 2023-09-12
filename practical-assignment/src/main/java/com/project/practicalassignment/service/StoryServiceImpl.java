@@ -2,17 +2,18 @@ package com.project.practicalassignment.service;
 
 import com.project.practicalassignment.entity.Story;
 import com.project.practicalassignment.repository.StoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StoryServiceImpl implements StoryService{
-    @Autowired
-    private StoryRepository storyRepository;
+
+    private final StoryRepository repository;
     @Override
     public List<Story> getAllStories() {
-        return this.storyRepository.findAll();
+        return this.repository.findAll();
     }
 }
