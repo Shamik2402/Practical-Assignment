@@ -18,6 +18,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 public class StoryServiceTest {
 
@@ -28,6 +30,8 @@ public class StoryServiceTest {
     private StoryServiceImpl storyService;
 
     private List<Story> storyList;
+
+    private Story story;
 
     @BeforeEach
     public void setUp() {
@@ -44,7 +48,8 @@ public class StoryServiceTest {
         StoryType storyType = StoryType.builder()
                 .storyType("Bug").build();
 
-        Story story = Story.builder()
+        story = Story.builder()
+                .storyId(1L)
                 .storyTitle("This is a title")
                 .storyDescription("This is a description")
                 .storyStatus(status)
@@ -53,13 +58,14 @@ public class StoryServiceTest {
                 .createdDate(LocalDate.now())
                 .build();
 
+        storyRepository.save(story);
         storyList.add(story);
     }
 
     @Test
     public void testGetAllStories() {
         // Stub the behavior of storyRepository.findAll() to return the test data
-        Mockito.when(storyRepository.findAll()).thenReturn(storyList);
+        when(storyRepository.findAll()).thenReturn(storyList);
 
         // Call the service method to get all stories
         List<Story> result = storyService.getAllStories();
@@ -68,5 +74,17 @@ public class StoryServiceTest {
         Assertions.assertThat(result).isEqualTo(storyList);
 
         Assertions.assertThat(result.size()).isGreaterThan(0);
+    }
+    @Test
+    public void testDeleteStoryById() {
+
+        when(storyRepository.save(story)).thenReturn(story);
+//        when(storyRepository.deleteById(1L)).thenReturn(story);
+
+        Story deletedStory = storyService.deleteStoryById(1L);
+
+//        Assertions.assertThat(deletedStory).isNotNull();
+        Assertions.assertThat(deletedStory.getStoryId()).isEqualTo(1);
+
     }
 }

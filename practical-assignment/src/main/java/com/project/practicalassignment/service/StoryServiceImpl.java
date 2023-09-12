@@ -16,4 +16,12 @@ public class StoryServiceImpl implements StoryService{
     public List<Story> getAllStories() {
         return this.repository.findAll();
     }
+
+    @Override
+    public Story deleteStoryById(long id) {
+
+        Story story = repository.findById(id).get();
+        repository.delete(story);
+        return story;
+    }
 }
