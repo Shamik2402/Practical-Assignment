@@ -1,4 +1,78 @@
-<div class="container">
+<div class="demo-table-container">
+  <div class="demo-button-container">
+    <button mat-raised-button class="demo-button">
+      Create Story
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="stories" class="mat-elevation-z8 demo-table">
+    <!-- Position Column -->
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let story" id="story_id">{{story.storyId}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let story">{{story.storyTitle}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let story">{{story.storyDescription}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let story">{{story.storyStatus.statusName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Priority">
+      <th mat-header-cell *matHeaderCellDef>Priority</th>
+      <td mat-cell *matCellDef="let story">{{story.storyPriority.priorityLevel}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Story Type">
+      <th mat-header-cell *matHeaderCellDef>Story Type</th>
+      <td mat-cell *matCellDef="let story">{{story.storyType.storyType}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Created On">
+      <th mat-header-cell *matHeaderCellDef>Created On</th>
+      <td mat-cell *matCellDef="let story">{{story.createdDate}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Options">
+      <th mat-header-cell *matHeaderCellDef>Options</th>
+      <td mat-cell *matCellDef="let story">
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click)="deleteStory()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+<!-- Weight Column -->
+<!-- <ng-container matColumnDef="Description">
+    <th mat-header-cell *matHeaderCellDef>Weight</th>
+    <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+  </ng-container> -->
+
+<!-- Symbol Column -->
+<!-- <ng-container matColumnDef="symbol">
+    <th mat-header-cell *matHeaderCellDef>Symbol</th>
+    <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
+  </ng-container> -->
+
+
+
+
+<!-- <div class="container">
   <table class="table table-dark table-hover table-bordered border-light">
     <thead>
       <tr>
@@ -42,4 +116,4 @@
     </tbody>
   </table>
 
-</div>
+</div> -->

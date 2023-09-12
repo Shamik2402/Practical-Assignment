@@ -21,4 +21,8 @@ public class StoryController {
     public Story deleteStoryById(@PathVariable String id) {
         return this.service.deleteStoryById(Long.parseLong(id));
     }
+    @PostMapping("/stories")
+    public Story createNewStory(@RequestBody Story story) {
+        return service.createNewStory(story);
+    }
 }

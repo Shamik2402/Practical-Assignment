@@ -9,4 +9,6 @@ public interface StoryService {
     public List<Story> getAllStories();
 
     public Story deleteStoryById(long id);
+
+    public Story createNewStory(Story story);
 }

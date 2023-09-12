@@ -20,13 +20,13 @@ public class Story {
     private String storyTitle;
     @Column(name = "Description")
     private String storyDescription;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Status_Id", referencedColumnName = "Status_Id")
     private Status storyStatus;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Priority_Id", referencedColumnName = "Priority_Id")
     private Priority storyPriority;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Story_Type_Id", referencedColumnName = "Story_Type_Id")
     private StoryType storyType;
     @Column(name = "Created_On")

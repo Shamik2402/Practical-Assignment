@@ -15,4 +15,8 @@ export class StoryService {
    getAllStories() {
       return this.http.get(this.storyUrl);
    }
+
+   deleteStoryById(id: string) {
+      return this.http.delete(this.storyUrl + "/" + id);
+   }
 }
