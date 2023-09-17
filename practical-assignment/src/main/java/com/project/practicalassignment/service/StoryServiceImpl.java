@@ -37,18 +37,18 @@ public class StoryServiceImpl implements StoryService{
     @Override
     public Story createNewStory(Story story) {
 
-        int status_id = story.getStoryStatus().getStatusId();
-        int priority_id = story.getStoryPriority().getPriorityId();
-        int status_type_id = story.getStoryType().getStoryTypeId();
+        int status_id = story.getStatus().getStatusId();
+        int priority_id = story.getPriority().getPriorityId();
+        int status_type_id = story.getType().getStoryTypeId();
 
         Status status = statusRepository.findById(status_id).get();
-        story.setStoryStatus(status);
+        story.setStatus(status);
 
         Priority priority = priorityRepository.findById(priority_id).get();
-        story.setStoryPriority(priority);
+        story.setPriority(priority);
 
         StoryType storyType = storyTypeRepository.findById(status_type_id).get();
-        story.setStoryType(storyType);
+        story.setType(storyType);
 
         Story story1 = repository.save(story);
         return story1;

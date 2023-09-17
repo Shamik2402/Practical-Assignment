@@ -17,18 +17,18 @@ public class Story {
     @Column(name = "Story_Id")
     private long storyId;
     @Column(name = "Title")
-    private String storyTitle;
+    private String title;
     @Column(name = "Description")
-    private String storyDescription;
-    @OneToOne(cascade = CascadeType.ALL)
+    private String description;
+    @OneToOne
     @JoinColumn(name = "Status_Id", referencedColumnName = "Status_Id")
-    private Status storyStatus;
-    @OneToOne(cascade = CascadeType.ALL)
+    private Status status;
+    @OneToOne
     @JoinColumn(name = "Priority_Id", referencedColumnName = "Priority_Id")
-    private Priority storyPriority;
-    @OneToOne(cascade = CascadeType.ALL)
+    private Priority priority;
+    @OneToOne
     @JoinColumn(name = "Story_Type_Id", referencedColumnName = "Story_Type_Id")
-    private StoryType storyType;
+    private StoryType type;
     @Column(name = "Created_On")
     private LocalDate createdDate;
 }

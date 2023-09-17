@@ -1,0 +1,91 @@
+// :host {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+
+//   }
+
+/* Apply these styles in your component's CSS file or in a global stylesheet */
+
+/* Style the mat-card container */
+mat-card {
+  width: 100%;
+  max-width: 500px; /* Adjust the maximum width as needed */
+  margin: 0 auto; /* Center the card horizontally */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  border-radius: 8px; /* Add some border radius */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: none;
+}
+
+.example-button-container {
+  align-self: flex-end;
+  margin: 10px;
+}
+/* Style the mat-card-content */
+mat-card-content {
+  padding: 16px;
+  background-color: white; /* Add padding to the card content */
+}
+
+/* Style the mat-form-field */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px; /* Add spacing between form fields */
+}
+
+/* Style the mat-form-field label */
+mat-label {
+  color: black /* Label text color */
+}
+
+/* Style the input field */
+
+
+/* Style the input field on focus */
+input.mat-input-element:focus,
+textarea.mat-input-element:focus {
+  border-color: #007bff; /* Highlight border color on focus */
+}
+
+/* Style the select dropdown */
+mat-select {
+  width: 100%; /* Make the select dropdown full-width */
+}
+
+/* Style the select dropdown options */
+.mat-option {
+  color: #333; /* Option text color */
+}
+
+/* Style the select dropdown when open */
+.mat-select-panel {
+  border: 1px solid #ccc; /* Dropdown panel border color */
+}
+
+/* Style the selected option in the dropdown */
+.mat-option.mat-selected {
+  background-color: #007bff; /* Background color for selected option */
+  color: #fff; /* Text color for selected option */
+}
+
+/* Style the hover effect for options */
+.mat-option:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+}
+
+input.mat-input-element,
+textarea.mat-input-element {
+  width: 100%;
+  border: 1px solid #ccc; /* Input border color */
+  border-radius: 4px; /* Add some border radius */
+  padding: 8px; /* Add padding */
+  transition: border-color 0.2s;
+  background-color: white; /* Smooth transition for border color */
+}
+
+  

@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
+import { CreateStoryComponent } from './create-story/create-story.component';
 
 const routes: Routes = [
-  {path: 'stories', component: DashboardPageComponent}
+  {path: '', component: DashboardPageComponent},
+  {path: 'add', component: CreateStoryComponent},
 ];
 
 @NgModule({

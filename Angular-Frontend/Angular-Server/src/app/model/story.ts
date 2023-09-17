@@ -1,10 +1,22 @@
 export class Story {
 
-    id: Number | undefined;
+    // id: Number | undefined;
     title: string | undefined;
     description: string | undefined;
-    status: Object | undefined;
-    priority: Object | undefined;
-    type: Object | undefined;
-    createddate: Date | undefined;
+    status: {
+        statusId: number;
+    }  = {
+        statusId: 0
+    }
+    priority: {
+        priorityId: number
+    } = {
+        priorityId: 0
+    };
+    type: {
+        storyTypeId: number
+    } = {
+        storyTypeId: 0
+    }
+    createdDate: any | undefined;
 }
