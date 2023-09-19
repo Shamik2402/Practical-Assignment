@@ -11,4 +11,8 @@ public interface StoryService {
     public Story deleteStoryById(long id);
 
     public Story createNewStory(Story story);
+
+    public Story updateStoryById(Story story, long id);
+
+    public Story getStoryById(long id);
 }

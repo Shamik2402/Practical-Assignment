@@ -53,4 +53,33 @@ public class StoryServiceImpl implements StoryService{
         Story story1 = repository.save(story);
         return story1;
     }
+
+    @Override
+    public Story updateStoryById(Story story, long id) {
+        Story storyToUpdate = repository.findById(id).get();
+
+        int status_id = story.getStatus().getStatusId();
+        int priority_id = story.getPriority().getPriorityId();
+        int status_type_id = story.getType().getStoryTypeId();
+
+        Status status = statusRepository.findById(status_id).get();
+        storyToUpdate.setStatus(status);
+
+        Priority priority = priorityRepository.findById(priority_id).get();
+        storyToUpdate.setPriority(priority);
+
+        StoryType storyType = storyTypeRepository.findById(status_type_id).get();
+        storyToUpdate.setType(storyType);
+        storyToUpdate.setStoryId(id);
+        storyToUpdate.setTitle(story.getTitle());
+        storyToUpdate.setDescription(story.getDescription());
+        storyToUpdate.setCreatedDate(story.getCreatedDate());
+        repository.save(storyToUpdate);
+        return storyToUpdate;
+    }
+
+    @Override
+    public Story getStoryById(long id) {
+        return this.repository.findById(id).get();
+    }
 }

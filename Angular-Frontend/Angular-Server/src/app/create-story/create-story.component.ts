@@ -11,6 +11,8 @@ import { StoryService } from '../service/story-service.service';
 import { FormsModule } from '@angular/forms';
 import { Story } from '../model/story';
 import { DatePipe } from '@angular/common';
+import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import { CreateStoryDialogComponent } from '../create-story-dialog/create-story-dialog.component';
 
 @Component({
   selector: 'app-create-story',
@@ -23,7 +25,7 @@ import { DatePipe } from '@angular/common';
 })
 export class CreateStoryComponent {
 
-  constructor(private storyService: StoryService, private datepipe: DatePipe) {}
+  constructor(private storyService: StoryService, private datepipe: DatePipe,public dialog: MatDialog ) {}
 
   story: Story = new Story;
 
@@ -41,6 +43,11 @@ export class CreateStoryComponent {
         console.log(this.story);
         this.storyService.createStory(this.story).subscribe((data:any)=>{
           console.log("data saved successfully");
+          this.dialog.open(CreateStoryDialogComponent, {
+            width: '300px',
+            enterAnimationDuration:'0ms',
+            exitAnimationDuration: '0ms',
+          });
           console.log(data);
         });
       }

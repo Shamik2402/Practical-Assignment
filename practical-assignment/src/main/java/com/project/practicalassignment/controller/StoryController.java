@@ -25,4 +25,13 @@ public class StoryController {
     public Story createNewStory(@RequestBody Story story) {
         return service.createNewStory(story);
     }
+
+    @PutMapping("/stories/{id}")
+    public Story updateStory(@RequestBody Story story, @PathVariable String id) {
+        return service.updateStoryById(story, Long.parseLong(id));
+    }
+    @GetMapping("/stories/{id}")
+    public Story getStoryById(@PathVariable String id) {
+        return this.service.getStoryById(Long.parseLong(id));
+    }
 }

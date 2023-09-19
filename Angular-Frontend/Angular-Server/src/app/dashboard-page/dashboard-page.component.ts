@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { Router, RouterModule } from '@angular/router';
+import { Story } from '../model/story';
 
 
 @Component({
@@ -44,5 +45,10 @@ export class DashboardPageComponent implements OnInit {
       });
     }
 
+  }
+
+  updateStory(story: Story) {
+    console.log("story to be updated!");
+    console.log(story);
   }
 }

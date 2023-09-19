@@ -1,0 +1,42 @@
+<mat-card>
+    <mat-card-title>Update Story Details</mat-card-title>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput [(ngModel)]="story.title">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="story.description"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select [(value)]="selectedStatus" [(ngModel)]="story.status.statusId">
+          <mat-option value="1">1. To-Do</mat-option>
+          <mat-option value="2">2. In-Progress</mat-option>
+          <mat-option value="3">3. Completed</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Priority</mat-label>
+        <mat-select [(value)]="selectedPriority" [(ngModel)]="story.priority.priorityId">
+          <mat-option value="1">1. High</mat-option>
+          <mat-option value="2">2. Medium</mat-option>
+          <mat-option value="3">3. Low</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Type</mat-label>
+        <mat-select [(value)]="selectedType" [(ngModel)]="story.type.storyTypeId">
+          <mat-option value="1" default>1. Bug</mat-option>
+          <mat-option value="2">2. Feature</mat-option>
+          <mat-option value="3">3. Enhancement</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-card-actions align="end">
+        <button mat-stroked-button color="primary" (click)="updateStoryFormSubmission()">
+          Submit
+        </button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>

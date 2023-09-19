@@ -11,6 +11,8 @@ import { CreateStoryComponent } from './create-story/create-story.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { CreateStoryDialogComponent } from './create-story-dialog/create-story-dialog.component';
+import { UpdateStoryComponent } from './update-story/update-story.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +31,8 @@ import { DatePipe } from '@angular/common';
         MatIconModule,
         RouterModule,
         FormsModule,
+        CreateStoryDialogComponent,
+        UpdateStoryComponent
     ]
 })
 export class AppModule { }

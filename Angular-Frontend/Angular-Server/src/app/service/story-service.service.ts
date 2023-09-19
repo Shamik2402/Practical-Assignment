@@ -24,4 +24,12 @@ export class StoryService {
    createStory(story: Story) {
       return this.http.post(this.storyUrl, story);
    }
+
+   getStoryById(id: string) {
+      return this.http.get(this.storyUrl + "/" + id);
+   }
+
+   updateStoryById(id: string, story: Story) {
+      return this.http.put(this.storyUrl + "/" + id, story);
+   }
 }
