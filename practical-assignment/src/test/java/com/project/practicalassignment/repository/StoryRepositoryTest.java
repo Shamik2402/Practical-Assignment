@@ -30,11 +30,11 @@ public class StoryRepositoryTest {
                 .storyType("Bug").build();
 
         Story story = Story.builder()
-                .storyTitle("This is a title")
-                .storyDescription("This is a description")
-                .storyStatus(status)
-                .storyPriority(priority)
-                .storyType(storyType)
+                .title("This is a title")
+                .description("This is a description")
+                .status(status)
+                .priority(priority)
+                .type(storyType)
                 .createdDate(LocalDate.now())
                 .build();
 
