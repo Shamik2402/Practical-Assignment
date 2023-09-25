@@ -25,7 +25,8 @@ export class ChartsComponent implements OnInit {
         else if(data[i].status.statusName == this.statusLabels[1]) this.inProgressStatuses++;
         else this.completedStatuses++;
       }
-      this.createChart(this.statusLabels, [this.toDoStatuses,this.inProgressStatuses,this.completedStatuses], "piechart", "pie")
+      this.createChart(this.statusLabels, [this.toDoStatuses,this.inProgressStatuses,this.completedStatuses], "piechart", "pie");
+      this.createChart(this.statusLabels, [this.toDoStatuses,this.inProgressStatuses,this.completedStatuses], "barchart", "bar");
     });
   }
 

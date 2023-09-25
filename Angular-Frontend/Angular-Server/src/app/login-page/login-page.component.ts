@@ -14,7 +14,7 @@ export class LoginPageComponent implements OnInit{
   loginForm: SafeHtml = '';
 
     ngOnInit() {
-    this.http.get("http://localhost:8080", {responseType: 'text'}).subscribe((response)=>{
+    this.http.get("http://localhost:8080/users", {responseType: 'text'}).subscribe((response)=>{
       this.loginForm = this.sanitizer.bypassSecurityTrustHtml(response);
     });
     

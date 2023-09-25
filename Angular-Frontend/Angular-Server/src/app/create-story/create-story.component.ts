@@ -15,6 +15,7 @@ import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog
 import { CreateStoryDialogComponent } from '../create-story-dialog/create-story-dialog.component';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-create-story',
   templateUrl: './create-story.component.html',
@@ -46,8 +47,6 @@ export class CreateStoryComponent implements OnInit{
       this.types = data;
     });
   }
-
-
 
     createStoryFormSubmission() {
 
