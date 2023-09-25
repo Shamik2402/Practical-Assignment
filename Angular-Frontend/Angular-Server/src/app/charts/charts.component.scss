@@ -1,0 +1,16 @@
+/* Adjust the content container to handle the sidebar */
+.content-container {
+    margin-left: 250px; /* Adjust this margin to match your sidebar's width */
+    padding: 20px;
+    width: 400px;
+    height: 400px;
+    transition: margin 0.3s; /* Add a smooth transition for the margin */
+  }
+  
+  /* Media query for responsive design */
+  @media (max-width: 768px) {
+    .content-container {
+      margin-left: 0;
+    }
+  }
+  

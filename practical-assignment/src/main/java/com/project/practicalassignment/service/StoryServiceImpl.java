@@ -82,4 +82,19 @@ public class StoryServiceImpl implements StoryService{
     public Story getStoryById(long id) {
         return this.repository.findById(id).get();
     }
+
+    @Override
+    public List<Status> getAllStatuses() {
+        return statusRepository.findAll();
+    }
+
+    @Override
+    public List<Priority> getAllPriorities() {
+        return priorityRepository.findAll();
+    }
+
+    @Override
+    public List<StoryType> getAllTypes() {
+        return storyTypeRepository.findAll();
+    }
 }

@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import { concatMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateStoryDialogComponent } from '../create-story-dialog/create-story-dialog.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-update-story',
@@ -23,7 +24,7 @@ import { CreateStoryDialogComponent } from '../create-story-dialog/create-story-
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatSelectModule, 
     RouterModule, MatCardModule, MatIconModule, 
-    MatButtonModule, FormsModule, DatePipe]
+    MatButtonModule, FormsModule, DatePipe, CommonModule]
 })
 export class UpdateStoryComponent implements OnInit {
 

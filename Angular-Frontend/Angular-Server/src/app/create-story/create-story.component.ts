@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -13,6 +13,7 @@ import { Story } from '../model/story';
 import { DatePipe } from '@angular/common';
 import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { CreateStoryDialogComponent } from '../create-story-dialog/create-story-dialog.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-story',
@@ -21,13 +22,32 @@ import { CreateStoryDialogComponent } from '../create-story-dialog/create-story-
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatSelectModule, 
     RouterModule, MatCardModule, MatIconModule, 
-    MatButtonModule, FormsModule, DatePipe]
+    MatButtonModule, FormsModule, DatePipe, CommonModule]
 })
-export class CreateStoryComponent {
+export class CreateStoryComponent implements OnInit{
+
+  story: Story = new Story;
+  statuses: any;
+  priorities: any;
+  types: any;
 
   constructor(private storyService: StoryService, private datepipe: DatePipe,public dialog: MatDialog ) {}
 
-  story: Story = new Story;
+  ngOnInit() {
+    this.storyService.getAllStatuses().subscribe((data:any)=>{
+      this.statuses = data;
+    });
+
+    this.storyService.getAllPriorities().subscribe((data:any)=>{
+      this.priorities = data;
+    });
+
+    this.storyService.getAllStoryTypes().subscribe((data:any)=>{
+      this.types = data;
+    });
+  }
+
+
 
     createStoryFormSubmission() {
 

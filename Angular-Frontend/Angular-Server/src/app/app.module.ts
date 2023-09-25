@@ -13,10 +13,14 @@ import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { CreateStoryDialogComponent } from './create-story-dialog/create-story-dialog.component';
 import { UpdateStoryComponent } from './update-story/update-story.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { ChartsComponent } from './charts/charts.component';
 
 @NgModule({
     declarations: [
         AppComponent,
+        LoginPageComponent,
+        ChartsComponent,
         
     ],
     providers: [DatePipe],

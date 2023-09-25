@@ -12,25 +12,19 @@
     <mat-form-field>
       <mat-label>Status</mat-label>
       <mat-select [(ngModel)]="story.status.statusId">
-        <mat-option value="1" default>1. To-Do</mat-option>
-        <mat-option value="2">2. In-Progress</mat-option>
-        <mat-option value="3">3. Completed</mat-option>
+        <mat-option *ngFor="let status of statuses" [value]="status.statusId">{{status.statusId + ". " + status.statusName}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Priority</mat-label>
       <mat-select [(ngModel)]="story.priority.priorityId">
-        <mat-option value="1" default>1. High</mat-option>
-        <mat-option value="2">2. Medium</mat-option>
-        <mat-option value="3">3. Low</mat-option>
+        <mat-option *ngFor="let priority of priorities" [value]="priority.priorityId">{{priority.priorityId + ". " + priority.priorityLevel}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Type</mat-label>
       <mat-select [(ngModel)]="story.type.storyTypeId">
-        <mat-option value="1" default>1. Bug</mat-option>
-        <mat-option value="2">2. Feature</mat-option>
-        <mat-option value="3">3. Enhancement</mat-option>
+        <mat-option *ngFor="let type of types" [value]="type.storyTypeId">{{type.storyTypeId + ". " + type.storyType}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-card-actions align="end">

@@ -1,3 +1,18 @@
+/* Adjust the table container to handle the sidebar */
+.table-container {
+  margin-left: 250px; /* Adjust this margin to match your sidebar's width */
+  padding: 20px;
+  transition: margin 0.3s; /* Add a smooth transition for the margin */
+}
+
+/* Media query for responsive design */
+@media (max-width: 768px) {
+  .table-container {
+    margin-left: 0;
+  }
+}
+
+
 .demo-table {
   width: 100%;
 }
@@ -15,27 +30,6 @@
   background-color: darkgray;
 }
 
-// .demo-button + .demo-button {
-//   margin-left: 8px;
-// }
-
-// .mat-mdc-table {
-//   width: 100%;
-//   max-height: 500px;
-//   overflow: auto;
-// }
-
-// .mat-column-name {
-//   height: 100px;
-// }
-
-// .container {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     height: 100vh;
-//     text-align: center; /* Optional: To center vertically within the viewport */
-//   }
 
 /* Center the table and button container */
 .demo-table-container {

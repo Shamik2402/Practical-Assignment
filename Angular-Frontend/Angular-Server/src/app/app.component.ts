@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 
 @Component({
@@ -8,4 +8,5 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
 })
 export class AppComponent {
   title = 'Angular-Server';
+   
 }
