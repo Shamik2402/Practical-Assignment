@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import { CreateStoryComponent } from './create-story/create-story.component';
@@ -15,15 +15,21 @@ import { CreateStoryDialogComponent } from './create-story-dialog/create-story-d
 import { UpdateStoryComponent } from './update-story/update-story.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ChartsComponent } from './charts/charts.component';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthInterceptor } from './service/authi-interceptor';
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginPageComponent,
         ChartsComponent,
         
     ],
-    providers: [DatePipe],
+    providers: [DatePipe, CookieService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+          },],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
@@ -36,7 +42,8 @@ import { ChartsComponent } from './charts/charts.component';
         RouterModule,
         FormsModule,
         CreateStoryDialogComponent,
-        UpdateStoryComponent
+        UpdateStoryComponent,
+        LoginPageComponent,
     ]
 })
 export class AppModule { }

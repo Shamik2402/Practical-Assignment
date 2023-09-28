@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
+import {HttpClient, HttpHeaders} from '@angular/common/http'
 import { Story } from '../model/story';
-import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class StoryService {
   private priorityUrl: string;
   private storyTypeUrl: string;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private cookie: CookieService) { 
     this.storyUrl = 'http://localhost:8080/stories';
     this.statusUrl = 'http://localhost:8080/statuses';
     this.priorityUrl = 'http://localhost:8080/priorities';
@@ -21,34 +21,42 @@ export class StoryService {
    }
 
    getAllStories() {
-      return this.http.get(this.storyUrl);
+      let header = new HttpHeaders().set("Authorization", "Bearer " + this.cookie.get("Bearer"));
+      return this.http.get(this.storyUrl,{headers: header});
    }
 
    deleteStoryById(id: string) {
-      return this.http.delete(this.storyUrl + "/" + id);
+      let header = new HttpHeaders().set("Authorization", "Bearer " + this.cookie.get("Bearer"));
+      return this.http.delete(this.storyUrl + "/" + id, {headers:header});
    }
 
    createStory(story: Story) {
-      return this.http.post(this.storyUrl, story);
+      let header = new HttpHeaders().set("Authorization", "Bearer " + this.cookie.get("Bearer"));
+      return this.http.post(this.storyUrl, story, {headers:header});
    }
 
    getStoryById(id: string) {
-      return this.http.get(this.storyUrl + "/" + id);
+      let header = new HttpHeaders().set("Authorization", "Bearer " + this.cookie.get("Bearer"));
+      return this.http.get(this.storyUrl + "/" + id, {headers:header});
    }
 
    updateStoryById(id: string, story: Story) {
-      return this.http.put(this.storyUrl + "/" + id, story);
+      let header = new HttpHeaders().set("Authorization", "Bearer " + this.cookie.get("Bearer"));
+      return this.http.put(this.storyUrl + "/" + id, story, {headers:header});
    }
 
    getAllStatuses() {
-      return this.http.get(this.statusUrl);
+      let header = new HttpHeaders().set("Authorization", "Bearer " + this.cookie.get("Bearer"));
+      return this.http.get(this.statusUrl, {headers:header});
    }
 
    getAllPriorities() {
-      return this.http.get(this.priorityUrl);
+      let header = new HttpHeaders().set("Authorization", "Bearer " + this.cookie.get("Bearer"));
+      return this.http.get(this.priorityUrl, {headers:header});
    }
 
    getAllStoryTypes() {
-      return this.http.get(this.storyTypeUrl);
+      let header = new HttpHeaders().set("Authorization", "Bearer " + this.cookie.get("Bearer"));
+      return this.http.get(this.storyTypeUrl, {headers:header});
    }
 }
