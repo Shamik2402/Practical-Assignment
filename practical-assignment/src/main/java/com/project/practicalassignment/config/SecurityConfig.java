@@ -1,6 +1,7 @@
 package com.project.practicalassignment.config;
 
 import com.project.practicalassignment.filters.JwtRequestFilter;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -9,11 +10,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,6 +28,7 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.security.auth.login.CredentialException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,11 +56,8 @@ public class SecurityConfig {
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(customizer-> customizer
                         .authenticationEntryPoint(((request, response, authException) -> {
-                            if (authException instanceof AuthenticationCredentialsNotFoundException) {
-                                response.sendRedirect("http://localhost:4200/login");
-                            }
-                            else {
-                                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+                            if(authException instanceof InsufficientAuthenticationException) {
+                                response.sendError(HttpServletResponse.SC_NOT_FOUND, authException.getMessage());
                             }
                         })))
                 .authorizeHttpRequests(auth-> auth.requestMatchers("/authenticate").permitAll()

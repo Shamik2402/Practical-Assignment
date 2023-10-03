@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { User } from '../model/user';
 import { LoginService } from '../service/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
+import { pipe, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -15,6 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   imports: [FormsModule, CommonModule]
 })
 export class LoginPageComponent implements OnInit{
+  
   constructor(private cookie: CookieService, private loginService: LoginService,
     private route: ActivatedRoute, private router: Router) { }
 
@@ -30,12 +33,21 @@ export class LoginPageComponent implements OnInit{
 
   }
 
-
-
   OnLogin() {
     this.cookie.set("username", this.user.username, { expires: 1 });
     this.cookie.set("password", this.user.password, { expires: 1 });
-    this.loginService.getJwtToken(this.user).subscribe((response) => {
+    this.loginService.authenticateUser(this.user)
+    .pipe(
+      catchError((error: any)=>{
+        if(error.status === 404) {
+          this.router.navigate(['login'], {
+            queryParams: {error: "Incorrect Username or Password"}
+          });
+        }
+        return error;
+      })
+    )
+      .subscribe((response) => {
       this.token = response;
       console.log(this.token);
       this.cookie.set("Bearer", this.token.jwt);

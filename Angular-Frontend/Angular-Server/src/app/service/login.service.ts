@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../model/user';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,10 @@ export class LoginService {
   private authenticationUrl: string;
 
   constructor(private http: HttpClient) {
-    this.authenticationUrl = 'http://localhost:8080/authenticate';
+    this.authenticationUrl = `${environment.apiUrl}/authenticate`;
   }
 
-  getJwtToken(user: User) {
+  authenticateUser(user: User) {
     return this.http.post(this.authenticationUrl, user);
  }
 }

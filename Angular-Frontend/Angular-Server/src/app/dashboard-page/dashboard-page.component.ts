@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { StoryService } from '../service/story-service.service';
+import { StoryService } from '../service/story.service';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';

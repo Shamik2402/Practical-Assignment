@@ -3,6 +3,7 @@ package com.project.practicalassignment.service;
 import com.project.practicalassignment.models.AuthenticationRequest;
 import com.project.practicalassignment.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import javax.security.auth.login.CredentialException;
 import java.util.ArrayList;
 
 @Service

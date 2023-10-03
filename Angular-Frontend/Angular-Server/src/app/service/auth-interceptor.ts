@@ -7,28 +7,44 @@ import {
   HttpHandler,
   HttpEvent,
   HttpResponse,
+  HttpHeaders,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cookie: CookieService) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(
+
+    if (req.url === 'http://localhost:8080/authenticate') {
+      return next.handle(req);
+    }
+
+    let token = this.getTokenFromCookie();
+    
+    // Clone the request and set the Authorization header
+    const authReq = req.clone({
+      setHeaders: {
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    return next.handle(authReq).pipe(
       tap(
         (event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
             // Do nothing on successful responses
-          }
+          } 
         },
         (error) => {
-          if (error.status === 401) {
+          if (error.status === 404) {
             // Unauthorized: Redirect to the login page
             this.router.navigate(['login'], {
               queryParams: { error: 'Session expired. Please log in again.' },
@@ -37,5 +53,9 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       )
     );
+  }
+
+  getTokenFromCookie() {
+    return this.cookie.get("Bearer");
   }
 }

@@ -7,7 +7,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
-import { StoryService } from '../service/story-service.service';
+import { StoryService } from '../service/story.service';
 import { FormsModule } from '@angular/forms';
 import { Story } from '../model/story';
 import { DatePipe } from '@angular/common';

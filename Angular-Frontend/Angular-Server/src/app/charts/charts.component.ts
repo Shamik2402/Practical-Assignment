@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { StoryService } from '../service/story-service.service';
+import { StoryService } from '../service/story.service';
 import { Story } from '../model/story';
 Chart.register(...registerables);
 

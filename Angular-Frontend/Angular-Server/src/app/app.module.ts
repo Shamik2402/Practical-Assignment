@@ -16,7 +16,7 @@ import { UpdateStoryComponent } from './update-story/update-story.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ChartsComponent } from './charts/charts.component';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthInterceptor } from './service/authi-interceptor';
+import { AuthInterceptor } from './service/auth-interceptor';
 
 @NgModule({
     declarations: [

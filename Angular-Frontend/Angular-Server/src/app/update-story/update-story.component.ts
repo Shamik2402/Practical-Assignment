@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StoryService } from '../service/story-service.service';
+import { StoryService } from '../service/story.service';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
