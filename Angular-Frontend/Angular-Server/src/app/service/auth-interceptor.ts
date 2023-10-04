@@ -16,7 +16,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router, private cookie: CookieService) {}
+  constructor(private router: Router, private cookie: CookieService) { }
 
   intercept(
     req: HttpRequest<any>,
@@ -28,7 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     let token = this.getTokenFromCookie();
-    
+
     // Clone the request and set the Authorization header
     const authReq = req.clone({
       setHeaders: {
@@ -41,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
         (event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
             // Do nothing on successful responses
-          } 
+          }
         },
         (error) => {
           if (error.status === 404) {
