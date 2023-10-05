@@ -1,6 +1,8 @@
 package com.project.practicalassignment.service;
 
+import com.project.practicalassignment.entity.Role;
 import com.project.practicalassignment.models.AuthenticationRequest;
+import com.project.practicalassignment.repository.RoleRepository;
 import com.project.practicalassignment.repository.UserRepository;
 import com.project.practicalassignment.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ public class UserService implements UserDetailsService {
 
     private final JwtUtil jwtTokenUtil;
     private final UserRepository repository;
+    private final RoleRepository roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -32,8 +35,11 @@ public class UserService implements UserDetailsService {
         throw new Exception("Incorrect Password");
     }
 
-    public void SaveUser(com.project.practicalassignment.entity.User user) {
-        repository.save(user);
+    public com.project.practicalassignment.entity.User SaveUser(com.project.practicalassignment.entity.User user) {
+        int roleId = user.getRole().getId();
+        Role role = roleRepository.findById(roleId).get();
+        user.setRole(role);
+        return repository.save(user);
     }
 
 }

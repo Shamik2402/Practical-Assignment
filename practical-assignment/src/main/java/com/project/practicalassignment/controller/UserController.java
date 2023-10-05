@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService service;
     @PostMapping("/user")
-    public void CreateUser(@RequestBody User user) {
-        service.SaveUser(user);
+    public User CreateUser(@RequestBody User user) {
+        return service.SaveUser(user);
     }
 }

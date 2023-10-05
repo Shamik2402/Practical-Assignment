@@ -18,6 +18,6 @@ export class SidebarComponent{
   }
 
   logOut() {
-    this.cookie.delete("username");
+    this.cookie.deleteAll();
   }
 }
