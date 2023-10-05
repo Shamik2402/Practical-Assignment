@@ -16,6 +16,7 @@ import { concatMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateStoryDialogComponent } from '../create-story-dialog/create-story-dialog.component';
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-update-story',
@@ -24,7 +25,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatSelectModule, 
     RouterModule, MatCardModule, MatIconModule, 
-    MatButtonModule, FormsModule, DatePipe, CommonModule]
+    MatButtonModule, FormsModule, DatePipe, CommonModule, SidebarComponent]
 })
 export class UpdateStoryComponent implements OnInit {
 
@@ -40,7 +41,7 @@ export class UpdateStoryComponent implements OnInit {
   ngOnInit() {
     this.router.url.pipe(
       concatMap((UrlSegment) => {
-        this.id = UrlSegment[1].path;
+        this.id = UrlSegment[2].path;
         return this.storyService.getStoryById(this.id);
       })
     ).subscribe((data: any) => {

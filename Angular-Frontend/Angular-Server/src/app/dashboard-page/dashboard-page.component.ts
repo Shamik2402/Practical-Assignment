@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { Router, RouterModule } from '@angular/router';
 import { Story } from '../model/story';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -13,7 +15,7 @@ import { Story } from '../model/story';
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss'],
   standalone: true,
-  imports: [MatButtonModule, MatTableModule, MatIconModule, MatDialogModule, RouterModule],
+  imports: [MatButtonModule, MatTableModule, MatIconModule, MatDialogModule, RouterModule, SidebarComponent, CommonModule],
 })
 
 @Injectable({

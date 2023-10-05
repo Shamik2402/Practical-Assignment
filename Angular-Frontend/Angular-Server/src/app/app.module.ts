@@ -17,6 +17,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { ChartsComponent } from './charts/charts.component';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthInterceptor } from './service/auth-interceptor';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { AuthInterceptor } from './service/auth-interceptor';
         CreateStoryDialogComponent,
         UpdateStoryComponent,
         LoginPageComponent,
+        SidebarComponent,
     ]
 })
 export class AppModule { }

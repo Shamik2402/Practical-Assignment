@@ -1,0 +1,8 @@
+<div class="sidebar">
+    <h2 class="user">{{username}}</h2>
+    <ul class="sidebar-list">
+      <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+      <li><a [routerLink]="['/charts']">Charts</a></li>
+      <li><a [routerLink]="['']" (click)="logOut()">Logout</a></li>
+    </ul>
+  </div>

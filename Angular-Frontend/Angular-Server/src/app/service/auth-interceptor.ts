@@ -46,7 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
         (error) => {
           if (error.status === 404) {
             // Unauthorized: Redirect to the login page
-            this.router.navigate(['login'], {
+            this.router.navigate([''], {
               queryParams: { error: 'Session expired. Please log in again.' },
             });
           }

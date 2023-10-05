@@ -14,6 +14,7 @@ import { DatePipe } from '@angular/common';
 import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { CreateStoryDialogComponent } from '../create-story-dialog/create-story-dialog.component';
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 
 @Component({
@@ -23,7 +24,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatSelectModule, 
     RouterModule, MatCardModule, MatIconModule, 
-    MatButtonModule, FormsModule, DatePipe, CommonModule]
+    MatButtonModule, FormsModule, DatePipe, CommonModule, SidebarComponent]
 })
 export class CreateStoryComponent implements OnInit{
 

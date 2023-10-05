@@ -35,12 +35,11 @@ export class LoginPageComponent implements OnInit{
 
   OnLogin() {
     this.cookie.set("username", this.user.username, { expires: 1 });
-    this.cookie.set("password", this.user.password, { expires: 1 });
     this.loginService.authenticateUser(this.user)
     .pipe(
       catchError((error: any)=>{
         if(error.status === 404) {
-          this.router.navigate(['login'], {
+          this.router.navigate([''], {
             queryParams: {error: "Incorrect Username or Password"}
           });
         }
@@ -51,7 +50,7 @@ export class LoginPageComponent implements OnInit{
       this.token = response;
       console.log(this.token);
       this.cookie.set("Bearer", this.token.jwt);
-      this.router.navigate(['']);
+      this.router.navigate(['dashboard']);
     });
   }
 }

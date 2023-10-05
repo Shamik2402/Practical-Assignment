@@ -7,10 +7,10 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { ChartsComponent } from './charts/charts.component';
 
 const routes: Routes = [
-  {path: '', component: DashboardPageComponent},
-  {path: 'login', component:LoginPageComponent},
+  {path: 'dashboard', component: DashboardPageComponent},
+  {path: '', component:LoginPageComponent},
   {path: 'add', component: CreateStoryComponent},
-  {path: 'update/:id', component: UpdateStoryComponent},
+  {path: 'dashboard/update/:id', component: UpdateStoryComponent},
   {path: 'charts', component: ChartsComponent}
 ];
 
