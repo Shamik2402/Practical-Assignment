@@ -23,4 +23,7 @@ public class User {
     private Role role;
     @Column(name = "Reports_To")
     private String reportsTo;
+    @OneToOne
+    @JoinColumn(name = "Team", referencedColumnName = "Id")
+    private Team team;
 }

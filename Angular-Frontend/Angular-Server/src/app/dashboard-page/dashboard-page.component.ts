@@ -8,6 +8,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Story } from '../model/story';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../service/user.service';
 
 
 @Component({
@@ -25,8 +26,9 @@ import { CommonModule } from '@angular/common';
 export class DashboardPageComponent implements OnInit {
 
   stories: any;
+  users: any;
   displayedColumns: string[] = ['Id', 'Title', 'Description', 'Status', 'Priority', 'Story Type', 'Created On', 'Options'];
-  constructor(private storyService: StoryService) { }
+  constructor(private storyService: StoryService, private userService: UserService) { }
 
 
   ngOnInit(): void {
@@ -34,6 +36,11 @@ export class DashboardPageComponent implements OnInit {
       this.stories = data;
       console.log(this.stories);
     });
+
+    this.userService.getUsersByManager().subscribe((data:any)=>{
+      this.users = data;
+      console.log(this.users.Rohit);
+    })
   }
 
 
