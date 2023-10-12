@@ -1,16 +1,20 @@
 package com.project.practicalassignment.controller;
 
 import com.project.practicalassignment.entity.Story;
+import com.project.practicalassignment.entity.Team;
 import com.project.practicalassignment.service.StoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequiredArgsConstructor
 public class StoryController {
-    private final StoryService service;
+    @Autowired
+    StoryService service;
+
     @GetMapping("/stories")
     public List<Story> getAllStory() {
         return this.service.getAllStories();
@@ -33,4 +37,10 @@ public class StoryController {
     public Story getStoryById(@PathVariable String id) {
         return this.service.getStoryById(Long.parseLong(id));
     }
+
+    @GetMapping("/stories/team")
+    public List<Story> getStoriesByTeam(@RequestParam String team) {
+        return service.getStoriesByTeam(team);
+    }
+
 }

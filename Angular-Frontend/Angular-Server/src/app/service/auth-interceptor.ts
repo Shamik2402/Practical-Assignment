@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environment/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -23,7 +24,7 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
 
-    if (req.url === 'http://localhost:8080/authenticate') {
+    if (req.url === `${environment.apiUrl}/authenticate`) {
       return next.handle(req);
     }
 

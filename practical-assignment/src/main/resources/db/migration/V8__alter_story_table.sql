@@ -1,0 +1,13 @@
+ALTER TABLE Story
+ADD COLUMN Created_By INT NOT NULL,
+ADD COLUMN Assigned_To INT NOT NULL,
+ADD COLUMN Team INT NOT NULL;
+
+CREATE INDEX idx_created_by ON User (Id);
+CREATE INDEX idx_assigned_to ON User (Id);
+CREATE INDEX idx_team ON Team (Id);
+
+ALTER TABLE Story
+ADD CONSTRAINT fk_Created_By FOREIGN KEY (Created_By) REFERENCES User (Id),
+ADD CONSTRAINT fk_Assigned_To FOREIGN KEY (Assigned_To) REFERENCES User (Id),
+ADD CONSTRAINT fk_Team FOREIGN KEY (Team) REFERENCES Team (Id);

@@ -17,6 +17,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateStoryDialogComponent } from '../create-story-dialog/create-story-dialog.component';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { UserService } from '../service/user.service';
+import { User } from '../model/user';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-update-story',
@@ -25,17 +28,20 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatSelectModule, 
     RouterModule, MatCardModule, MatIconModule, 
-    MatButtonModule, FormsModule, DatePipe, CommonModule, SidebarComponent]
+    MatButtonModule, FormsModule, DatePipe, CommonModule, SidebarComponent, MatChipsModule]
 })
 export class UpdateStoryComponent implements OnInit {
 
   constructor(private storyService: StoryService, private router: ActivatedRoute,
-    public dialog: MatDialog) {}
+    public dialog: MatDialog, private userService: UserService, private cookie: CookieService) {}
 
   public story: Story = new Story;
   selectedStatus: string = "";
   selectedPriority: string = "";
   selectedType: string = "";
+  users: any[] = [];
+  allUsers: any[] = [];
+  selectedUserId: any;
   id: any;
 
   ngOnInit() {
@@ -45,20 +51,41 @@ export class UpdateStoryComponent implements OnInit {
         return this.storyService.getStoryById(this.id);
       })
     ).subscribe((data: any) => {
+      console.log(data);
       this.story.title = data.title;
       this.story.description = data.description;
-      this.story.status.statusId = data.status.statusId;
-      this.story.priority.priorityId = data.priority.priorityId;
-      this.story.type.storyTypeId = data.type.storyTypeId;
+      this.story.status = data.status;
+      this.story.priority = data.priority;
+      this.story.type = data.type;
+      this.story.createdBy = data.createdBy;
+      this.story.team = data.team;
       this.story.createdDate = data.createdDate;
       console.log(this.story);
       this.selectedStatus = this.story.status.statusId.toString();
       this.selectedPriority = this.story.priority.priorityId.toString();
       this.selectedType = this.story.type.storyTypeId.toString();
+      this.selectedUserId = data.assignedTo.id;
+      this.story.assignedTo = data.assignedTo;
+      console.log(this.selectedUserId);
     });
+    this.userService.getUsersByTeam().subscribe((data:any)=>{
+      console.log(data);
+      for(var i=0;i<Object.keys(data).length;i++)  {
+        const teamKey = Object.keys(data)[i];
+        this.allUsers.push(data[teamKey]);
+      }
+      this.allUsers.forEach((element:any) => {
+        element.forEach((subuser:any) => {
+          if(subuser.team.name === this.cookie.get("team")) {
+            this.users.push(subuser);
+          }
+        });
+      });
+    })
   }
 
   updateStoryFormSubmission() {
+    console.log(this.story.assignedTo.id);
     if(confirm("Are sure you want to save?")) {
       var status = this.story.status.statusId;
       var priority = this.story.priority.priorityId;
@@ -69,6 +96,11 @@ export class UpdateStoryComponent implements OnInit {
       this.story.status.statusId = parseInt(status.toString());
       this.story.priority.priorityId = parseInt(priority.toString());
       this.story.type.storyTypeId = parseInt(type.toString());
+      this.users.forEach((user:any) => {
+        if(user.id === this.story.assignedTo.id) {
+          this.story.assignedTo = user;
+        }
+      });
       console.log(this.story);
       this.storyService.updateStoryById(this.id,this.story).subscribe((data:any)=>{
         console.log("data saved successfully");

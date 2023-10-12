@@ -1,11 +1,9 @@
 package com.project.practicalassignment.service;
 
-import com.project.practicalassignment.entity.Priority;
-import com.project.practicalassignment.entity.Status;
-import com.project.practicalassignment.entity.Story;
-import com.project.practicalassignment.entity.StoryType;
+import com.project.practicalassignment.entity.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StoryService {
 
@@ -24,4 +22,5 @@ public interface StoryService {
     public List<Priority> getAllPriorities();
 
     public List<StoryType> getAllTypes();
+    public List<Story> getStoriesByTeam(String team);
 }

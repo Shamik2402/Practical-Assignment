@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import { environment } from 'src/environment/environment';
@@ -14,7 +14,12 @@ export class UserService {
     this.userUrl = `${environment.apiUrl}/user`;
   }
 
-  getUsersByManager() {
+  getUsersByTeam() {
     return this.http.get(this.userUrl);
+  }
+
+  getUserByUsername(username: string) {
+    const param = new HttpParams().set("username", username);
+    return this.http.get(this.userUrl + "/username", {params:param})
   }
 }

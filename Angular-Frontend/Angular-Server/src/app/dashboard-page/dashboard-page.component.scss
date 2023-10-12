@@ -91,5 +91,14 @@
 }
 
 /* Add any additional styling you need here */
+mat-paginator {
+  position: relative;
+  // bottom: 0; /* Position at the bottom */
+  right: 0; /* Position at the right */
+  margin-top: 16px; /* Add margin to create space between the table and paginator */
+}
 
+.filter {
+  width: 100%;
+}
 

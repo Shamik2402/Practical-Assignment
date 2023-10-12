@@ -29,7 +29,7 @@ public class UserServiceTest {
     private JwtUtil jwtUtil;
 
     @InjectMocks
-    private UserService service;
+    private UserServiceImpl service;
 
     private final String SECRET_KEY = "secret";
 
