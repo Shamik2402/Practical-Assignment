@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -23,7 +24,7 @@ import { CookieService } from 'ngx-cookie-service';
   standalone: true,
   imports: [MatButtonModule, MatTableModule, MatIconModule, MatDialogModule, 
     RouterModule, SidebarComponent, CommonModule, MatPaginatorModule, MatSortModule, 
-    MatFormFieldModule, MatInputModule, FormsModule],
+    MatFormFieldModule, MatInputModule, FormsModule, MatCardModule],
 })
 
 @Injectable({
@@ -34,6 +35,7 @@ export class DashboardPageComponent implements OnInit {
 
   stories: any;
   datasource: any;
+  team: string = "";
   filterValue: string = '';
   displayedColumns: string[] = ['Id', 'Title', 'Description', 'Status', 'Priority', 'Story Type', 
   'Created On','Created By','Assigned To', 'Options'];
@@ -41,7 +43,9 @@ export class DashboardPageComponent implements OnInit {
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private storyService: StoryService, private cookie: CookieService) { }
+  constructor(private storyService: StoryService, private cookie: CookieService) {
+    this.team = this.cookie.get("team");
+   }
 
 
   ngOnInit(): void {

@@ -31,5 +31,22 @@ describe('UserService', () => {
         const req = httpController.expectOne(`${environment.apiUrl}/user`);
         expect(req.request.method).toEqual('GET');
         req.flush(user);
+    });
+
+    it('should get user by username', ()=>{
+        let user = {
+            id:1,
+            username: "Shamik",
+            team: {
+                id:1,
+                name:""
+            }
+        };
+        service.getUserByUsername(user.username).subscribe((data)=>{
+            expect(data).toEqual(user);
+        });
+        const req = httpController.expectOne(`${environment.apiUrl}/user/username?username=` + user.username);
+        expect(req.request.method).toEqual('GET');
+        req.flush(user);
     })
   });

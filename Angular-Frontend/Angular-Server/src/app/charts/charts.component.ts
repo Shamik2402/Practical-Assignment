@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { StoryService } from '../service/story.service';
 import { Story } from '../model/story';
+import { CookieService } from 'ngx-cookie-service';
 Chart.register(...registerables);
 
 @Component({
@@ -16,10 +17,11 @@ export class ChartsComponent implements OnInit {
   inProgressStatuses: number = 0;
   completedStatuses: number = 0;
 
-  constructor(private story: StoryService) {}
+  constructor(private story: StoryService, private cookie: CookieService) {}
 
   ngOnInit() {
-    this.story.getAllStories().subscribe((data:any)=>{
+    this.story.getAllStoriesByTeam(this.cookie.get("team")).subscribe((data:any)=>{
+      console.log(data);
       for(var i=0;i<Object.keys(data).length; i++) {
         if(data[i].status.statusName == this.statusLabels[0]) this.toDoStatuses++;
         else if(data[i].status.statusName == this.statusLabels[1]) this.inProgressStatuses++;
