@@ -28,6 +28,10 @@
         <mat-option *ngFor="let type of types" [value]="type.storyTypeId">{{type.storyTypeId + ". " + type.storyType}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-label class="mat-label-bold">Assigned To</mat-label>
+    <mat-chip-listbox aria-label="Assigned To" [(ngModel)]="selectedUserId">
+      <mat-chip-option *ngFor="let user of users" [value]="user.id">{{user.id + "."}} {{user.username}}</mat-chip-option>
+    </mat-chip-listbox>
     <mat-card-actions align="end">
       <button mat-stroked-button color="primary" (click)="createStoryFormSubmission()">
         Submit

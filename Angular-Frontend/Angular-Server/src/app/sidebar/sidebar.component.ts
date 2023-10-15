@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -12,12 +12,15 @@ import { CookieService } from 'ngx-cookie-service';
 export class SidebarComponent{
 
   username: string = "";
+  team: string = "";
 
-  constructor(private cookie: CookieService) {
+  constructor(private cookie: CookieService, private router: Router) {
     this.username = this.cookie.get("username");
+    this.team = this.cookie.get("team");
   }
 
   logOut() {
     this.cookie.deleteAll();
+    this.router.navigate(['']);
   }
 }

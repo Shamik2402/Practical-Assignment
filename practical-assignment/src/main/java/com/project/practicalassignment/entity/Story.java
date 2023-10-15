@@ -31,4 +31,13 @@ public class Story {
     private StoryType type;
     @Column(name = "Created_On")
     private LocalDate createdDate;
+    @OneToOne
+    @JoinColumn(name = "Created_By", referencedColumnName = "Id")
+    private User createdBy;
+    @OneToOne
+    @JoinColumn(name = "Assigned_To", referencedColumnName = "Id")
+    private User assignedTo;
+    @OneToOne
+    @JoinColumn(name = "Team", referencedColumnName = "Id")
+    private Team team;
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
+import {HttpClient, HttpParams} from '@angular/common/http'
 import { Story } from '../model/story';
 import { environment } from 'src/environment/environment';
 
@@ -51,5 +51,10 @@ export class StoryService {
 
    getAllStoryTypes() {
       return this.http.get(this.storyTypeUrl);
+   }
+
+   getAllStoriesByTeam(team: string) {
+      const param = new HttpParams().set("team", team);
+      return this.http.get(this.storyUrl + "/team", {params: param});
    }
 }

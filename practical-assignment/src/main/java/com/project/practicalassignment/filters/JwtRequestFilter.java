@@ -1,6 +1,6 @@
 package com.project.practicalassignment.filters;
 
-import com.project.practicalassignment.service.UserService;
+import com.project.practicalassignment.service.UserServiceImpl;
 import com.project.practicalassignment.utils.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,7 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private final UserService userDetailsService;
+    private final UserServiceImpl userDetailsService;
     private final JwtUtil jwtUtil;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)

@@ -1,12 +1,10 @@
 package com.project.practicalassignment.controller;
 
+import com.project.practicalassignment.entity.Team;
 import com.project.practicalassignment.entity.User;
-import com.project.practicalassignment.service.UserService;
+import com.project.practicalassignment.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -14,14 +12,19 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-    private final UserService service;
+    private final UserServiceImpl service;
     @PostMapping("/user")
     public User CreateUser(@RequestBody User user) {
-        return service.SaveUser(user);
+        return service.saveUser(user);
     }
 
     @GetMapping("/user")
-    public Map<String, List<User>> getUsersByManager() {
-        return service.getUsersByManager();
+    public Map<Team, List<User>> getUsersByTeam() {
+        return service.getUsersByTeam();
+    }
+
+    @GetMapping("user/username")
+    public User getUserByUsername(@RequestParam String username) {
+        return service.getUserByUsername(username);
     }
 }

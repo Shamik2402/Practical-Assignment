@@ -34,6 +34,10 @@
           <mat-option value="3">3. Enhancement</mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-label class="mat-label-bold">Assigned To</mat-label>
+    <mat-chip-listbox aria-label="Assigned To" [(ngModel)]="story.assignedTo.id">
+      <mat-chip-option *ngFor="let user of users"  [value]="user.id" [selected]="user.id === story.assignedTo.id">{{user.id + "."}} {{user.username}}</mat-chip-option>
+    </mat-chip-listbox>
       <mat-card-actions align="end">
         <button mat-stroked-button color="primary" (click)="updateStoryFormSubmission()">
           Submit

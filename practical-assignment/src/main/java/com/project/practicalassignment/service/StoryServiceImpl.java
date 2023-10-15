@@ -1,29 +1,29 @@
 package com.project.practicalassignment.service;
 
-import com.project.practicalassignment.entity.Priority;
-import com.project.practicalassignment.entity.Status;
-import com.project.practicalassignment.entity.Story;
-import com.project.practicalassignment.entity.StoryType;
-import com.project.practicalassignment.repository.PriorityRepository;
-import com.project.practicalassignment.repository.StatusRepository;
-import com.project.practicalassignment.repository.StoryRepository;
-import com.project.practicalassignment.repository.StoryTypeRepository;
+import com.project.practicalassignment.entity.*;
+import com.project.practicalassignment.repository.*;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class StoryServiceImpl implements StoryService{
 
-    private final StoryRepository repository;
-    private final StatusRepository statusRepository;
-    private final PriorityRepository priorityRepository;
-    private final StoryTypeRepository storyTypeRepository;
+    private StoryRepository repository;
+    private StatusRepository statusRepository;
+    private PriorityRepository priorityRepository;
+    private StoryTypeRepository storyTypeRepository;
+    private UserRepository userRepository;
+    private TeamRepository teamRepository;
     @Override
     public List<Story> getAllStories() {
-        return this.repository.findAll();
+        return repository.findAll();
     }
 
     @Override
@@ -40,6 +40,9 @@ public class StoryServiceImpl implements StoryService{
         int status_id = story.getStatus().getStatusId();
         int priority_id = story.getPriority().getPriorityId();
         int status_type_id = story.getType().getStoryTypeId();
+        int createdById = story.getCreatedBy().getId();
+        int assignedToId = story.getAssignedTo().getId();
+        int teamId = story.getTeam().getId();
 
         Status status = statusRepository.findById(status_id).get();
         story.setStatus(status);
@@ -49,6 +52,15 @@ public class StoryServiceImpl implements StoryService{
 
         StoryType storyType = storyTypeRepository.findById(status_type_id).get();
         story.setType(storyType);
+
+        User createdUser = userRepository.findById(createdById).get();
+        story.setCreatedBy(createdUser);
+
+        User assignedUser = userRepository.findById(assignedToId).get();
+        story.setAssignedTo(assignedUser);
+
+        Team team = teamRepository.findById(teamId).get();
+        story.setTeam(team);
 
         Story story1 = repository.save(story);
         return story1;
@@ -61,6 +73,9 @@ public class StoryServiceImpl implements StoryService{
         int status_id = story.getStatus().getStatusId();
         int priority_id = story.getPriority().getPriorityId();
         int status_type_id = story.getType().getStoryTypeId();
+        int createdById = story.getCreatedBy().getId();
+        int assignedToId = story.getAssignedTo().getId();
+        int teamId = story.getTeam().getId();
 
         Status status = statusRepository.findById(status_id).get();
         storyToUpdate.setStatus(status);
@@ -70,6 +85,16 @@ public class StoryServiceImpl implements StoryService{
 
         StoryType storyType = storyTypeRepository.findById(status_type_id).get();
         storyToUpdate.setType(storyType);
+
+        User createdUser = userRepository.findById(createdById).get();
+        storyToUpdate.setCreatedBy(createdUser);
+
+        User assignedUser = userRepository.findById(assignedToId).get();
+        storyToUpdate.setAssignedTo(assignedUser);
+
+        Team team = teamRepository.findById(teamId).get();
+        storyToUpdate.setTeam(team);
+
         storyToUpdate.setStoryId(id);
         storyToUpdate.setTitle(story.getTitle());
         storyToUpdate.setDescription(story.getDescription());
@@ -96,5 +121,10 @@ public class StoryServiceImpl implements StoryService{
     @Override
     public List<StoryType> getAllTypes() {
         return storyTypeRepository.findAll();
+    }
+
+    @Override
+    public List<Story> getStoriesByTeam(String team) {
+        return repository.findAll().stream().filter(story -> Objects.equals(story.getTeam().getName(),team)).toList();
     }
 }

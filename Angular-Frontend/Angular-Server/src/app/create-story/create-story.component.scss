@@ -81,11 +81,27 @@ mat-select {
 input.mat-input-element,
 textarea.mat-input-element {
   width: 100%;
-  border: 1px solid #ccc; /* Input border color */
-  border-radius: 4px; /* Add some border radius */
   padding: 8px; /* Add padding */
   transition: border-color 0.2s;
   background-color: white; /* Smooth transition for border color */
+}
+
+/* Style the mat-chip-listbox container */
+mat-chip-listbox {
+  padding: 10px;
+}
+
+/* Style the individual mat-chip-option elements */
+mat-chip-option {
+  margin: 4px; /* Add some margin between chips */
+ /* Set the text color */
+  cursor: pointer; /* Add a pointer cursor on hover */
+  padding: 5px 10px; /* Add padding inside the chips */
+}
+
+.mat-label-bold {
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
   

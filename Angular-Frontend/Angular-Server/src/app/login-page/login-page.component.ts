@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,7 +6,7 @@ import { User } from '../model/user';
 import { LoginService } from '../service/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
-import { pipe, throwError } from 'rxjs';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-login-page',
@@ -19,22 +18,24 @@ import { pipe, throwError } from 'rxjs';
 export class LoginPageComponent implements OnInit{
   
   constructor(private cookie: CookieService, private loginService: LoginService,
-    private route: ActivatedRoute, private router: Router) { }
+    private route: ActivatedRoute, private router: Router, private userService: UserService) { }
 
     user: User = new User;
     token: any;
     errorMessage: any;
+    users: any[] = [];
     
   ngOnInit() {
     this.route.queryParams.subscribe((params)=>{
       this.errorMessage = params;
       console.log(this.errorMessage.error);
-    })
+    });
 
   }
 
   OnLogin() {
     this.cookie.set("username", this.user.username, { expires: 1 });
+    this.cookie.set("password",this.user.password, {expires:1});
     this.loginService.authenticateUser(this.user)
     .pipe(
       catchError((error: any)=>{
@@ -50,7 +51,11 @@ export class LoginPageComponent implements OnInit{
       this.token = response;
       console.log(this.token);
       this.cookie.set("Bearer", this.token.jwt);
-      this.router.navigate(['dashboard']);
+      let userOfTeam = this.cookie.get("username");
+      this.userService.getUserByUsername(userOfTeam).subscribe((data:any)=>{
+        this.cookie.set("team", data.team.name);
+        this.router.navigate(['dashboard']);
+      })
     });
   }
 }

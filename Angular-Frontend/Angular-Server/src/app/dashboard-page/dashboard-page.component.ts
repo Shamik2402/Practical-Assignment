@@ -1,22 +1,30 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { StoryService } from '../service/story.service';
-import { MatTableModule, MatTable } from '@angular/material/table';
+import { MatTableModule, MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { Router, RouterModule } from '@angular/router';
 import { Story } from '../model/story';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../service/user.service';
-
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatSort, MatSortModule} from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss'],
   standalone: true,
-  imports: [MatButtonModule, MatTableModule, MatIconModule, MatDialogModule, RouterModule, SidebarComponent, CommonModule],
+  imports: [MatButtonModule, MatTableModule, MatIconModule, MatDialogModule, 
+    RouterModule, SidebarComponent, CommonModule, MatPaginatorModule, MatSortModule, 
+    MatFormFieldModule, MatInputModule, FormsModule, MatCardModule],
 })
 
 @Injectable({
@@ -26,23 +34,62 @@ import { UserService } from '../service/user.service';
 export class DashboardPageComponent implements OnInit {
 
   stories: any;
-  users: any;
-  displayedColumns: string[] = ['Id', 'Title', 'Description', 'Status', 'Priority', 'Story Type', 'Created On', 'Options'];
-  constructor(private storyService: StoryService, private userService: UserService) { }
+  datasource: any;
+  team: string = "";
+  filterValue: string = '';
+  displayedColumns: string[] = ['Id', 'Title', 'Description', 'Status', 'Priority', 'Story Type', 
+  'Created On','Created By','Assigned To', 'Options'];
+
+  @ViewChild(MatPaginator) paginator !: MatPaginator;
+  @ViewChild(MatSort) sort !: MatSort;
+
+  constructor(private storyService: StoryService, private cookie: CookieService) {
+    this.team = this.cookie.get("team");
+   }
 
 
   ngOnInit(): void {
-    this.storyService.getAllStories().subscribe((data: any) => {
+    let team = this.cookie.get("team");
+    this.storyService.getAllStoriesByTeam(team).subscribe((data: any) => {
       this.stories = data;
-      console.log(this.stories);
+      this.datasource = new MatTableDataSource<Story>(this.stories);
+      console.log(this.datasource);
+      this.datasource.paginator = this.paginator;
+      this.datasource.sort = this.sort;
+      this.datasource.sortingDataAccessor = (item:any, property:any) => {
+        // Handle nested properties
+        const nestedProperties = property.split('.');
+        let value = item;
+        for (const prop of nestedProperties) {
+          if (value.hasOwnProperty(prop)) {
+            value = value[prop];
+          } else {
+            return '';
+          }
+        }
+        return value;
+      };
     });
-
-    this.userService.getUsersByManager().subscribe((data:any)=>{
-      this.users = data;
-      console.log(this.users.Rohit);
-    })
   }
 
+  Filterchange() {
+    this.datasource.data = this.customFilter(this.stories, this.filterValue);
+  }
+
+  customFilter(data: Story[], filter: string): Story[] {
+    filter = filter.toLowerCase();
+    return data.filter((item: Story) => {
+      // Check if the filter string exists in any of the columns you want to filter
+      return (
+        item.title.toLowerCase().includes(filter) ||
+        item.description.toLowerCase().includes(filter) ||
+        item.status.statusName.toLowerCase().includes(filter) ||
+        item.priority.priorityLevel.toLowerCase().includes(filter) ||
+        item.type.storyType.toLowerCase().includes(filter)
+      );
+    });
+  }
+  
 
   deleteStory(story_id: any) {
 
@@ -54,10 +101,5 @@ export class DashboardPageComponent implements OnInit {
       });
     }
 
-  }
-
-  updateStory(story: Story) {
-    console.log("story to be updated!");
-    console.log(story);
   }
 }
